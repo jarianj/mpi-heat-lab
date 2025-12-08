@@ -1,0 +1,29 @@
+# Compiled executables
+*.exe
+*.out
+*.o
+*.obj
+
+# Build artifacts
+build/
+dist/
+*.dll
+*.so
+*.a
+*.lib
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+compile_commands.json
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Temporary files
+*.tmp
+*.log
