@@ -72,8 +72,6 @@ All processes do equal work → ideal for strong scaling.
 ```
 .
 ├── main.c              # Main MPI heat equation solver
-├── mpicompile.ps1      # PowerShell compilation script (Windows)
-├── mpirun.ps1          # PowerShell execution script (Windows)
 ├── README.md           # This file
 └── .gitignore          # Git ignore rules
 ```
@@ -82,13 +80,7 @@ All processes do equal work → ideal for strong scaling.
 
 ### Windows (PowerShell)
 
-Using the provided script:
-
-```powershell
-.\mpicompile.ps1
-```
-
-Or compile manually with MS-MPI:
+Compile with MS-MPI:
 
 ```powershell
 gcc -I"C:\Program Files (x86)\Microsoft SDKs\MPI\Include" main.c -L"C:\Program Files (x86)\Microsoft SDKs\MPI\Lib\x64" -lmsmpi -o main.exe
@@ -105,14 +97,6 @@ mpicc -O3 -Wall -o main main.c
 ## ▶️ How to Run
 
 ### Windows (PowerShell)
-
-Using the provided script:
-
-```powershell
-.\mpirun.ps1 -Processes 4
-```
-
-Or run manually:
 
 ```powershell
 mpiexec -n 4 main.exe
