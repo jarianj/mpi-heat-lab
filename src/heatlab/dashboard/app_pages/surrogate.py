@@ -69,7 +69,9 @@ columns[0].metric(
     help="Relative L2 error of the predicted temperature change",
 )
 columns[1].metric("32x32 coarse solver", percent(test["coarse solver 32x32"]["change_relative_l2"]))
-columns[2].metric("FNO error, shifted data", percent(shifted_table["fno conservative"]["change_relative_l2"]))
+columns[2].metric(
+    "FNO error, shifted data", percent(shifted_table["fno conservative"]["change_relative_l2"])
+)
 columns[3].metric("FNO energy drift", f"{test['fno conservative']['energy_drift']:.1e}")
 
 st.subheader("Try a new sample")
@@ -83,7 +85,9 @@ resolution = controls[2].segmented_control(
 )
 
 if fno_model() is None:
-    st.info("Train a model with `python -m heatlab train` to enable this panel.", icon=":material/info:")
+    st.info(
+        "Train a model with `python -m heatlab train` to enable this panel.", icon=":material/info:"
+    )
 else:
     with st.spinner("Running the solver and the model"):
         output = compare(int(seed), distribution_choice == "Shifted", resolution or 64)
@@ -93,7 +97,9 @@ else:
     low, high = float(output["initial"].min()), float(output["initial"].max())
 
     columns = st.columns(3)
-    columns[0].metric("Error on this sample", percent(np.linalg.norm(error) / np.linalg.norm(change)))
+    columns[0].metric(
+        "Error on this sample", percent(np.linalg.norm(error) / np.linalg.norm(change))
+    )
     columns[1].metric("Solver, 4 ranks, CFL 0.25", f"{output['solver_seconds'] * 1000:.1f} ms")
     columns[2].metric("FNO, CPU", f"{output['fno_seconds'] * 1000:.1f} ms")
 
@@ -104,12 +110,8 @@ else:
     panels[1].plotly_chart(
         heatmap(np.log10(output["alpha"]), "log10 diffusivity", height=250), alt="Material map"
     )
-    panels[2].plotly_chart(
-        heatmap(output["truth"], "Solver", height=250), alt="Solver temperature"
-    )
-    panels[3].plotly_chart(
-        heatmap(output["prediction"], "FNO", height=250), alt="FNO temperature"
-    )
+    panels[2].plotly_chart(heatmap(output["truth"], "Solver", height=250), alt="Solver temperature")
+    panels[3].plotly_chart(heatmap(output["prediction"], "FNO", height=250), alt="FNO temperature")
     panels[4].plotly_chart(
         heatmap(error, "FNO - solver", -limit, limit, DIVERGING, height=250), alt="Prediction error"
     )

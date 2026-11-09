@@ -19,7 +19,9 @@ comparisons = sum(row["comparisons"] for row in independent)
 orders = [row["order"] for row in spatial]
 
 columns = st.columns(4)
-columns[0].metric("Spatial order", f"{min(orders):.2f} to {max(orders):.2f}", help="Design order is 2")
+columns[0].metric(
+    "Spatial order", f"{min(orders):.2f} to {max(orders):.2f}", help="Design order is 2"
+)
 columns[1].metric("Bit-identical parallel runs", f"{identical} of {comparisons}")
 columns[2].metric("Worst energy drift", f"{max(row['relative_drift'] for row in energy):.1e}")
 columns[3].metric("Composite slab error", f"{report['composite_slab']['linf_error']:.1e}")
@@ -56,7 +58,9 @@ with right:
     )
 
 st.subheader("Same answer on any decomposition")
-st.caption("SHA-256 of the output compared with the 1-rank run, for 2 to 12 ranks and two halo modes.")
+st.caption(
+    "SHA-256 of the output compared with the 1-rank run, for 2 to 12 ranks and two halo modes."
+)
 st.dataframe(
     pd.DataFrame(
         [

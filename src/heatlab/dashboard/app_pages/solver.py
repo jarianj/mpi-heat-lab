@@ -97,7 +97,9 @@ if scheme == "explicit" and cfl > 1:
 
 if submitted or "simulation" not in st.session_state:
     if steps > 400_000:
-        st.error("That combination needs too many steps. Shorten the end time or use a coarser grid.")
+        st.error(
+            "That combination needs too many steps. Shorten the end time or use a coarser grid."
+        )
         st.stop()
     try:
         with st.spinner("Running MPI solver"):
@@ -121,7 +123,9 @@ if result["status"] == "diverged":
 columns = st.columns(5)
 columns[0].metric("Steps", f"{result['completed_steps']:,}")
 columns[1].metric("Wall time", f"{result['wall']:.3f} s")
-columns[2].metric("Throughput", f"{result['mcups']:,.0f} MCUPS", help="Million cell updates per second")
+columns[2].metric(
+    "Throughput", f"{result['mcups']:,.0f} MCUPS", help="Million cell updates per second"
+)
 columns[3].metric("Halo share", percent(result["halo_max"] / max(result["wall"], 1e-12)))
 drift = abs(result["energy_final"] - result["energy_initial"]) / max(
     abs(result["energy_initial"]), 1e-300
@@ -146,7 +150,9 @@ with left:
         else:
             suffix = ", middle slice" if dimension == 3 else ""
             st.plotly_chart(
-                heatmap(field, f"Temperature at t = {time_value:.4f}{suffix}", low, high, height=480),
+                heatmap(
+                    field, f"Temperature at t = {time_value:.4f}{suffix}", low, high, height=480
+                ),
                 alt="Temperature field heatmap",
             )
     else:

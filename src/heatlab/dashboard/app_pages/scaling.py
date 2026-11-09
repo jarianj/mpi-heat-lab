@@ -72,10 +72,18 @@ figure = go.Figure()
 ordered = decomposition.sort_values(["ranks", "halo_max"])
 labels = [f"{row.ranks} ranks, {row.label}" for row in ordered.itertuples()]
 figure.add_trace(
-    go.Bar(y=labels, x=ordered["compute_max"], name="Compute", orientation="h", marker_color=SERIES[0])
+    go.Bar(
+        y=labels, x=ordered["compute_max"], name="Compute", orientation="h", marker_color=SERIES[0]
+    )
 )
 figure.add_trace(
-    go.Bar(y=labels, x=ordered["halo_max"], name="Halo exchange", orientation="h", marker_color=SERIES[1])
+    go.Bar(
+        y=labels,
+        x=ordered["halo_max"],
+        name="Halo exchange",
+        orientation="h",
+        marker_color=SERIES[1],
+    )
 )
 figure.update_layout(barmode="stack")
 figure.update_yaxes(autorange="reversed")

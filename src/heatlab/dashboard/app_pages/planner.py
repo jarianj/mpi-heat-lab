@@ -30,13 +30,18 @@ columns[0].metric("Analytic model, unseen grid", percent(grid["analytic_mean"], 
 columns[1].metric("Boosted trees, unseen grid", percent(grid["boosted_mean"], 0))
 columns[2].metric("Analytic model, unseen ranks", percent(ranks_fold["analytic_mean"], 0))
 columns[3].metric("Boosted trees, unseen ranks", percent(ranks_fold["boosted_mean"], 0))
-st.caption(f"Mean absolute percentage error. Repeat-to-repeat noise is {percent(report['repeat_noise_cv'], 0)}.")
+noise = percent(report["repeat_noise_cv"], 0)
+st.caption(f"Mean absolute percentage error. Repeat-to-repeat noise is {noise}.")
 
 controls = st.columns(3)
-dimension = controls[0].segmented_control("Dimensions", [1, 2, 3], default=2, key="plan_dimension") or 2
+dimension = (
+    controls[0].segmented_control("Dimensions", [1, 2, 3], default=2, key="plan_dimension") or 2
+)
 limits = {1: (2**16, 2**22), 2: (256, 2048), 3: (48, 192)}
 low, high = limits[dimension]
-n = controls[1].slider("Cells per axis", low, high, int(np.sqrt(low * high)), key=f"plan_n_{dimension}")
+n = controls[1].slider(
+    "Cells per axis", low, high, int(np.sqrt(low * high)), key=f"plan_n_{dimension}"
+)
 steps = controls[2].number_input("Steps", 1, 10_000_000, 10_000, key="plan_steps")
 
 available = os.cpu_count() or 16
