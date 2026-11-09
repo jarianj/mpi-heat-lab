@@ -111,7 +111,7 @@ Both predict the temperature *change*. On an insulated domain total energy is co
 
 Two models predict the time per step from 720 timed runs:
 
-- *Analytic*: non-negative least squares on cells per rank, halo cells per rank, and neighbor count, weighted to minimize relative error. Each coefficient has a physical meaning.
+- *Analytic*: non-negative least squares on cells per rank, total cells, halo cells per rank, and neighbor count, weighted to minimize relative error. Each coefficient has a physical meaning. The total-cells term stands for the memory bus all ranks share. Without it the model assumes compute time falls as $1/P$, which the weak-scaling study shows is false on this machine. Adding it cut the held-out-grid error from 53% to 38%. Because that choice was made after seeing validation scores, those scores are slightly optimistic.
 - *Gradient boosting*: on log features, more flexible but less interpretable.
 
 Both are validated by holding out an entire grid size or rank count, which tests extrapolation rather than interpolation.

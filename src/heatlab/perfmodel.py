@@ -40,7 +40,7 @@ def target_seconds_per_step(frame: pd.DataFrame) -> pd.Series:
 
 
 class AnalyticModel:
-    columns = ("cells_per_rank", "surface_per_rank", "neighbors")
+    columns = ("cells_per_rank", "cells", "surface_per_rank", "neighbors")
 
     def design(self, features: pd.DataFrame) -> np.ndarray:
         return np.column_stack(
