@@ -1,0 +1,57 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  solver:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install MPI
+        run: sudo apt-get update && sudo apt-get install -y libopenmpi-dev openmpi-bin
+      - name: Install Python packages
+        run: |
+          python -m pip install --upgrade pip
+          pip install torch --index-url https://download.pytorch.org/whl/cpu
+          pip install -e ".[dev]"
+      - name: Build with warnings as errors
+        run: make build CFLAGS="-O2 -std=c11 -Wall -Wextra -Wpedantic -Werror"
+      - name: Lint
+        run: ruff check src tests
+      - name: Test
+        run: pytest
+        env:
+          OMPI_MCA_rmaps_base_oversubscribe: "1"
+          OMPI_MCA_btl_vader_single_copy_mechanism: none
+
+  sanitizers:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install MPI
+        run: sudo apt-get update && sudo apt-get install -y libopenmpi-dev openmpi-bin
+      - name: Build with AddressSanitizer and UBSan
+        run: make build CFLAGS="-O1 -g -std=c11 -fsanitize=address,undefined -fno-omit-frame-pointer"
+      - name: Run across decompositions
+        env:
+          ASAN_OPTIONS: detect_leaks=0
+          OMPI_MCA_rmaps_base_oversubscribe: "1"
+        run: |
+          mpiexec -n 4 ./bin/heatsolve --nx 64 --ny 48 --t-end 0.001
+          mpiexec -n 8 ./bin/heatsolve --nx 24 --ny 24 --nz 24 --bc periodic --t-end 0.001
+          mpiexec -n 3 ./bin/heatsolve --nx 64 --ny 64 --scheme cn --medium inclusion --alpha2 0.1 --cfl 5 --t-end 0.001
+
+  docker:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build image
+        run: docker build -t mpi-heat-lab .
+      - name: Run solver in image
+        run: docker run --rm mpi-heat-lab mpiexec -n 2 ./bin/heatsolve --nx 64 --t-end 0.001

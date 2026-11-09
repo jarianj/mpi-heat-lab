@@ -1,29 +1,19 @@
-# Compiled executables
+.venv/
+bin/
+__pycache__/
+*.pyc
+*.egg-info/
+.pytest_cache/
+.ruff_cache/
+data/
+runs/
+checkpoints/
+models/*
+!models/fno_seed0.pt
 *.exe
-*.out
 *.o
-*.obj
-
-# Build artifacts
-build/
-dist/
-*.dll
-*.so
-*.a
-*.lib
-
-# IDE files
+*.log
 .vscode/
 .idea/
-*.swp
-*.swo
-*~
-compile_commands.json
-
-# OS files
 .DS_Store
 Thumbs.db
-
-# Temporary files
-*.tmp
-*.log
