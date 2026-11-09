@@ -1,0 +1,471 @@
+{
+  "spatial_convergence": [
+    {
+      "case": "1D neumann",
+      "n": [
+        32,
+        64,
+        128,
+        256,
+        512
+      ],
+      "l2_error": [
+        0.00017074137238183072,
+        4.590550774858368e-05,
+        1.1471209406656871e-05,
+        2.874054592488568e-06,
+        7.189046478156838e-07
+      ],
+      "order": 1.9781100956081372
+    },
+    {
+      "case": "1D dirichlet",
+      "n": [
+        32,
+        64,
+        128,
+        256,
+        512
+      ],
+      "l2_error": [
+        0.00017074137238183397,
+        4.590550774855789e-05,
+        1.1471209406653693e-05,
+        2.8740545925073767e-06,
+        7.189046477966312e-07
+      ],
+      "order": 1.9781100956147648
+    },
+    {
+      "case": "1D periodic",
+      "n": [
+        32,
+        64,
+        128,
+        256,
+        512
+      ],
+      "l2_error": [
+        0.0015180867227574636,
+        0.0004068018999598154,
+        0.00010155337982986746,
+        2.543737284443093e-05,
+        6.36240683482232e-06
+      ],
+      "order": 1.979623657011664
+    },
+    {
+      "case": "2D neumann",
+      "n": [
+        32,
+        64,
+        128,
+        256
+      ],
+      "l2_error": [
+        2.6716401067612125e-05,
+        6.697572338856288e-06,
+        1.675543341052765e-06,
+        4.224148179165056e-07
+      ],
+      "order": 1.9947773522588592
+    },
+    {
+      "case": "2D dirichlet",
+      "n": [
+        32,
+        64,
+        128,
+        256
+      ],
+      "l2_error": [
+        2.6716401067624678e-05,
+        6.697572338844798e-06,
+        1.6755433410485634e-06,
+        4.2241481791216394e-07
+      ],
+      "order": 1.9947773522636256
+    },
+    {
+      "case": "2D periodic",
+      "n": [
+        32,
+        64,
+        128,
+        256
+      ],
+      "l2_error": [
+        0.00020153235457990519,
+        5.0970605345912856e-05,
+        1.2778875278049716e-05,
+        3.223362993068344e-06
+      ],
+      "order": 1.9894807615613277
+    },
+    {
+      "case": "3D neumann",
+      "n": [
+        16,
+        32,
+        64,
+        128
+      ],
+      "l2_error": [
+        6.393534705785357e-05,
+        1.7646744134055434e-05,
+        4.519320297225817e-06,
+        1.1297008227684126e-06
+      ],
+      "order": 1.943302759420956
+    },
+    {
+      "case": "3D dirichlet",
+      "n": [
+        16,
+        32,
+        64,
+        128
+      ],
+      "l2_error": [
+        6.393534705783067e-05,
+        1.7646744134049586e-05,
+        4.519320297220399e-06,
+        1.129700822767372e-06
+      ],
+      "order": 1.9433027594213264
+    },
+    {
+      "case": "3D periodic",
+      "n": [
+        16,
+        32,
+        64,
+        128
+      ],
+      "l2_error": [
+        0.0006591933579468968,
+        0.0001813492599269718,
+        4.639477978341289e-05,
+        1.1594160144828125e-05
+      ],
+      "order": 1.945443091445503
+    }
+  ],
+  "temporal_convergence": [
+    {
+      "scheme": "cn",
+      "expected_order": 2,
+      "dt": [
+        0.008333333333333333,
+        0.004,
+        0.002,
+        0.001,
+        0.0005
+      ],
+      "l2_error": [
+        0.00014673024141816852,
+        3.3785023409192095e-05,
+        8.44279028695768e-06,
+        2.108240701900506e-06,
+        5.246641668087515e-07
+      ],
+      "order": 2.0021479595880547
+    },
+    {
+      "scheme": "be",
+      "expected_order": 1,
+      "dt": [
+        0.008333333333333333,
+        0.004,
+        0.002,
+        0.001,
+        0.0005
+      ],
+      "l2_error": [
+        0.010341706014083926,
+        0.005050863447369281,
+        0.0025460937248380795,
+        0.0012782899160648966,
+        0.0006404666475161159
+      ],
+      "order": 0.989175248048846
+    }
+  ],
+  "decomposition_independence": [
+    {
+      "case": "1D uneven grid",
+      "reference_sha256": "970e6d98804faa1d88f0c524f27c0e81027e73ebbfca6def9344b19ed6469aac",
+      "comparisons": 12,
+      "bit_identical": 12,
+      "details": {
+        "2/sendrecv": true,
+        "2/overlap": true,
+        "3/sendrecv": true,
+        "3/overlap": true,
+        "4/sendrecv": true,
+        "4/overlap": true,
+        "6/sendrecv": true,
+        "6/overlap": true,
+        "8/sendrecv": true,
+        "8/overlap": true,
+        "12/sendrecv": true,
+        "12/overlap": true
+      }
+    },
+    {
+      "case": "2D uneven grid",
+      "reference_sha256": "6ed4a79ffae9afe20e14b2cfbec72a2831eb9fe3d9166de6c5b717f66a51dc6f",
+      "comparisons": 12,
+      "bit_identical": 12,
+      "details": {
+        "2/sendrecv": true,
+        "2/overlap": true,
+        "3/sendrecv": true,
+        "3/overlap": true,
+        "4/sendrecv": true,
+        "4/overlap": true,
+        "6/sendrecv": true,
+        "6/overlap": true,
+        "8/sendrecv": true,
+        "8/overlap": true,
+        "12/sendrecv": true,
+        "12/overlap": true
+      }
+    },
+    {
+      "case": "3D uneven grid",
+      "reference_sha256": "66eb301ff6bb30ca6d347ec1e1f1f618f5bc0ad0331661a8ab0067de4d787c14",
+      "comparisons": 12,
+      "bit_identical": 12,
+      "details": {
+        "2/sendrecv": true,
+        "2/overlap": true,
+        "3/sendrecv": true,
+        "3/overlap": true,
+        "4/sendrecv": true,
+        "4/overlap": true,
+        "6/sendrecv": true,
+        "6/overlap": true,
+        "8/sendrecv": true,
+        "8/overlap": true,
+        "12/sendrecv": true,
+        "12/overlap": true
+      }
+    },
+    {
+      "case": "2D periodic",
+      "reference_sha256": "74e33388d6b85411ddfa9cfbe85c4146bccc23f1457b7d7ad1f7456feccdf063",
+      "comparisons": 12,
+      "bit_identical": 12,
+      "details": {
+        "2/sendrecv": true,
+        "2/overlap": true,
+        "3/sendrecv": true,
+        "3/overlap": true,
+        "4/sendrecv": true,
+        "4/overlap": true,
+        "6/sendrecv": true,
+        "6/overlap": true,
+        "8/sendrecv": true,
+        "8/overlap": true,
+        "12/sendrecv": true,
+        "12/overlap": true
+      }
+    },
+    {
+      "case": "2D dirichlet",
+      "reference_sha256": "f106db6f0317888127aaa5badd02e829c8054aae88204132f757c91396976af5",
+      "comparisons": 12,
+      "bit_identical": 12,
+      "details": {
+        "2/sendrecv": true,
+        "2/overlap": true,
+        "3/sendrecv": true,
+        "3/overlap": true,
+        "4/sendrecv": true,
+        "4/overlap": true,
+        "6/sendrecv": true,
+        "6/overlap": true,
+        "8/sendrecv": true,
+        "8/overlap": true,
+        "12/sendrecv": true,
+        "12/overlap": true
+      }
+    },
+    {
+      "case": "2D inclusion",
+      "reference_sha256": "8072c8bc9dc8666b2bd293165dc11cad0ab73064f59961ca5c709af571141ebc",
+      "comparisons": 12,
+      "bit_identical": 12,
+      "details": {
+        "2/sendrecv": true,
+        "2/overlap": true,
+        "3/sendrecv": true,
+        "3/overlap": true,
+        "4/sendrecv": true,
+        "4/overlap": true,
+        "6/sendrecv": true,
+        "6/overlap": true,
+        "8/sendrecv": true,
+        "8/overlap": true,
+        "12/sendrecv": true,
+        "12/overlap": true
+      }
+    }
+  ],
+  "energy_conservation": [
+    {
+      "case": "explicit uniform",
+      "ranks": 1,
+      "energy_initial": 0.06283178114708261,
+      "energy_final": 0.06283178114708392,
+      "relative_drift": 2.0761977937261288e-14
+    },
+    {
+      "case": "explicit uniform",
+      "ranks": 4,
+      "energy_initial": 0.06283178114708379,
+      "energy_final": 0.06283178114708338,
+      "relative_drift": 6.626163171466244e-15
+    },
+    {
+      "case": "explicit uniform",
+      "ranks": 8,
+      "energy_initial": 0.06283178114708385,
+      "energy_final": 0.06283178114708346,
+      "relative_drift": 6.1844189600351554e-15
+    },
+    {
+      "case": "explicit inclusion",
+      "ranks": 1,
+      "energy_initial": 0.06283178114708261,
+      "energy_final": 0.06283178114708471,
+      "relative_drift": 3.3351687963047386e-14
+    },
+    {
+      "case": "explicit inclusion",
+      "ranks": 4,
+      "energy_initial": 0.06283178114708379,
+      "energy_final": 0.06283178114708365,
+      "relative_drift": 2.208721057155415e-15
+    },
+    {
+      "case": "explicit inclusion",
+      "ranks": 8,
+      "energy_initial": 0.06283178114708385,
+      "energy_final": 0.06283178114708368,
+      "relative_drift": 2.6504652685864953e-15
+    },
+    {
+      "case": "crank-nicolson layers",
+      "ranks": 1,
+      "energy_initial": 0.06283178114708261,
+      "energy_final": 0.06283178114686472,
+      "relative_drift": 3.4679129318397816e-12
+    },
+    {
+      "case": "crank-nicolson layers",
+      "ranks": 4,
+      "energy_initial": 0.06283178114708379,
+      "energy_final": 0.06283178114686427,
+      "relative_drift": 3.493754968208435e-12
+    },
+    {
+      "case": "crank-nicolson layers",
+      "ranks": 8,
+      "energy_initial": 0.06283178114708385,
+      "energy_final": 0.06283178114686676,
+      "relative_drift": 3.4551023497082123e-12
+    },
+    {
+      "case": "backward euler uniform",
+      "ranks": 1,
+      "energy_initial": 0.01574958356134426,
+      "energy_final": 0.015749583561344285,
+      "relative_drift": 1.5420171948725752e-15
+    },
+    {
+      "case": "backward euler uniform",
+      "ranks": 4,
+      "energy_initial": 0.015749583561343906,
+      "energy_final": 0.01574958356134317,
+      "relative_drift": 4.670109218757047e-14
+    },
+    {
+      "case": "backward euler uniform",
+      "ranks": 8,
+      "energy_initial": 0.01574958356134279,
+      "energy_final": 0.015749583561343407,
+      "relative_drift": 3.921129438390629e-14
+    }
+  ],
+  "composite_slab": {
+    "n": 128,
+    "alpha": [
+      1.0,
+      0.1
+    ],
+    "linf_error": 2.306155266751375e-12,
+    "exact_interface_temperature": 0.09090909090909091
+  },
+  "stability_boundary": [
+    {
+      "scheme": "explicit",
+      "cfl": 0.5,
+      "status": "ok",
+      "completed_steps": 6000,
+      "max_abs": 0.10134505029224924
+    },
+    {
+      "scheme": "explicit",
+      "cfl": 0.99,
+      "status": "ok",
+      "completed_steps": 6000,
+      "max_abs": 0.06872095480465057
+    },
+    {
+      "scheme": "explicit",
+      "cfl": 1.0,
+      "status": "ok",
+      "completed_steps": 6000,
+      "max_abs": 0.06850729750819799
+    },
+    {
+      "scheme": "explicit",
+      "cfl": 1.01,
+      "status": "diverged",
+      "completed_steps": 6000,
+      "max_abs": 2.161220687488353e+30
+    },
+    {
+      "scheme": "explicit",
+      "cfl": 1.1,
+      "status": "diverged",
+      "completed_steps": 700,
+      "max_abs": 7.75759049090241e+36
+    },
+    {
+      "scheme": "cn",
+      "cfl": 50.0,
+      "status": "ok",
+      "completed_steps": 6000,
+      "max_abs": 0.06283178156023998
+    },
+    {
+      "scheme": "be",
+      "cfl": 50.0,
+      "status": "ok",
+      "completed_steps": 6000,
+      "max_abs": 0.06283178181076034
+    }
+  ],
+  "original_defects": {
+    "description": "Uniform start and non-divisible rank counts from the original program",
+    "energy_at_ranks_1_3_4_7": [
+      1,
+      1,
+      1,
+      1
+    ]
+  }
+}
