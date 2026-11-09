@@ -38,8 +38,8 @@ with left:
                 figure.add_trace(
                     line(row["n"], row["l2_error"], f"{dimension}: order {row['order']:.2f}", slot)
                 )
-    figure.update_xaxes(type="log")
-    figure.update_yaxes(type="log")
+    figure.update_xaxes(type="log", tickvals=[16, 32, 64, 128, 256, 512])
+    figure.update_yaxes(type="log", dtick=1, exponentformat="power")
     st.plotly_chart(
         styled(figure, "Spatial convergence", "cells per axis", "L2 error"),
         alt="Log-log plot of error against grid size",
@@ -50,8 +50,8 @@ with right:
     for slot, row in enumerate(temporal):
         label = f"{names[row['scheme']]}: order {row['order']:.2f}"
         figure.add_trace(line(row["dt"], row["l2_error"], label, slot))
-    figure.update_xaxes(type="log")
-    figure.update_yaxes(type="log")
+    figure.update_xaxes(type="log", tickvals=temporal[0]["dt"], tickformat=".1e")
+    figure.update_yaxes(type="log", dtick=1, exponentformat="power")
     st.plotly_chart(
         styled(figure, "Temporal convergence", "time step", "L2 error"),
         alt="Log-log plot of error against time step",

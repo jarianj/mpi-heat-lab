@@ -26,7 +26,10 @@ report = require(load_json("surrogate"), "python -m heatlab evaluate")
 def fno_model():
     if not (MODELS / "fno_seed0.pt").exists():
         return None
-    return load_model("fno", 0, torch.device("cpu"))
+    model = load_model("fno", 0, torch.device("cpu"))
+    with torch.no_grad():
+        model(torch.zeros(1, 64, 64), torch.ones(1, 64, 64))
+    return model
 
 
 @st.cache_data(max_entries=32, show_spinner=False)

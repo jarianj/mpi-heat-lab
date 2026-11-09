@@ -165,8 +165,8 @@ with right:
         styled(peak, "Temperature range", "time", "temperature", height=250),
         alt="Minimum and maximum temperature over time",
     )
-    stages = ["Compute", "Halo exchange", "Reductions"]
-    values = [result["compute_max"], result["halo_max"], result["reduce_max"]]
+    stages = ["Compute", "Halo exchange", "Reductions", "File output"]
+    values = [result["compute_max"], result["halo_max"], result["reduce_max"], result["io_max"]]
     bars = go.Figure(go.Bar(x=values, y=stages, orientation="h", marker_color="#2a78d6"))
     bars.update_yaxes(autorange="reversed")
     st.plotly_chart(

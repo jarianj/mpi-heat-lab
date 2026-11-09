@@ -31,7 +31,10 @@ columns[1].metric("Boosted trees, unseen grid", percent(grid["boosted_mean"], 0)
 columns[2].metric("Analytic model, unseen ranks", percent(ranks_fold["analytic_mean"], 0))
 columns[3].metric("Boosted trees, unseen ranks", percent(ranks_fold["boosted_mean"], 0))
 noise = percent(report["repeat_noise_cv"], 0)
-st.caption(f"Mean absolute percentage error. Repeat-to-repeat noise is {noise}.")
+st.caption(
+    f"Mean absolute percentage error. Repeat-to-repeat noise is {noise}. The analytic model "
+    "uses one cost per cell, so it underestimates grids too large for the CPU cache."
+)
 
 controls = st.columns(3)
 dimension = (

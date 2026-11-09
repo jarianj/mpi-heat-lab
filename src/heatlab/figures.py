@@ -10,6 +10,7 @@ matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 import numpy as np
 from matplotlib.colors import LinearSegmentedColormap
+from matplotlib.ticker import NullFormatter
 
 from .solver import RESULTS, ROOT, Run, execute, read_field
 
@@ -88,6 +89,9 @@ def convergence(report: dict) -> None:
         xlabel="cells per axis",
         ylabel="L2 error against exact solution",
     )
+    ticks = [16, 32, 64, 128, 256, 512]
+    left.set_xticks(ticks, [str(t) for t in ticks])
+    left.xaxis.set_minor_formatter(NullFormatter())
     left.legend()
     names = {"cn": "Crank-Nicolson", "be": "backward Euler"}
     for color, row in zip(SERIES, report["temporal_convergence"], strict=False):
@@ -103,6 +107,9 @@ def convergence(report: dict) -> None:
         xlabel="time step",
         ylabel="L2 error against exact solution",
     )
+    steps = report["temporal_convergence"][0]["dt"]
+    right.set_xticks(steps, [f"{s:.1e}" for s in steps])
+    right.xaxis.set_minor_formatter(NullFormatter())
     right.legend()
     figure.tight_layout()
     save(figure, "convergence")
@@ -195,25 +202,51 @@ def cost_curve(report: dict) -> None:
     def median(key: str, n: int) -> float:
         return float(np.median([row[key] for row in rows if row["n"] == n]))
 
-    figure, axis = plt.subplots(figsize=(6, 3.8))
+    figure, (axis, tradeoff) = plt.subplots(1, 2, figsize=(11, 3.9))
     series = [
-        ("solver_1_rank", "Solver, 1 rank"),
-        ("solver_8_ranks", "Solver, 8 ranks"),
+        ("solver_1_rank", "Full solver, 1 rank"),
+        ("solver_8_ranks", "Full solver, 8 ranks"),
         ("fno_cpu", "FNO, CPU"),
         ("fno_gpu", "FNO, GPU"),
     ]
     for color, (key, label) in zip(SERIES, series, strict=False):
         if key in rows[0]:
             axis.loglog(sizes, [median(key, n) for n in sizes], "o-", color=color, label=label)
-    axis.set_xticks(sizes)
-    axis.set_xticklabels(sizes)
+    axis.set_xticks(sizes, [str(n) for n in sizes])
     axis.minorticks_off()
-    axis.set(
-        title="Time to advance one sample to the target time",
-        xlabel="cells per axis",
-        ylabel="seconds",
-    )
+    axis.set(title="Time per sample", xlabel="cells per axis", ylabel="seconds")
     axis.legend()
+
+    target = 256
+    points = [r for r in report["cost_accuracy"] if r["n"] == target]
+    coarse = [r for r in points if r["method"] == "coarse solver"]
+    coarse.sort(key=lambda r: r["seconds"])
+    fno_error = next(r for r in points if r["method"] == "fno conservative")["change_relative_l2"]
+    tradeoff.loglog(
+        [r["seconds"] for r in coarse],
+        [r["change_relative_l2"] * 100 for r in coarse],
+        "o-",
+        color=MUTED,
+        label="Coarse solver + upsampling",
+    )
+    for r in coarse:
+        tradeoff.annotate(
+            f"{int(r['coarse_n'])}²",
+            (r["seconds"], r["change_relative_l2"] * 100),
+            xytext=(6, -3),
+            textcoords="offset points",
+            color=MUTED,
+            fontsize=8,
+        )
+    networks = ((SERIES[2], "fno_cpu", "FNO, CPU"), (SERIES[3], "fno_gpu", "FNO, GPU"))
+    for color, key, label in networks:
+        tradeoff.loglog([median(key, target)], [fno_error * 100], "o", color=color, label=label)
+    tradeoff.set(
+        title=f"Error against cost at {target}x{target} (FNO trained at 64x64)",
+        xlabel="seconds per sample",
+        ylabel="error in temperature change (%)",
+    )
+    tradeoff.legend()
     figure.tight_layout()
     save(figure, "cost_curve")
 
